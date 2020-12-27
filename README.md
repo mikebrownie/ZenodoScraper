@@ -1,11 +1,12 @@
 # Zenodo Scraper
 Challenge for The Collaboratory
 
-### How does it work?
+### What it does
 - Uses the Open Archives Initiative Protocol for Metadata Harvesting ([OAI- PMH](http://www.openarchives.org/pmh/)). 
 - Unlike the Zenogo's REST API, it uses sets to allow for selective harvesting.
 	-  `openaire_data` is our set of interest, contains all datasets
-	- No need for Tokens or dealing with Zenogo REST API
+	- No need for registering for Tokens or dealing with Zenogo REST API
+- Makes GET requests for XML markup metadata on 100 records at a time until response is error
 ## Files Included:
  1) `main.py` - Implementation of scraper, run it to start scraping!
 
@@ -13,30 +14,27 @@ Challenge for The Collaboratory
  2) `result.JSON` - Harvested data from every Dataset formatted as:
  ```
  {  
-"zenodo_id": {  
+	"zenodo_id": {  
 
-"link": "Working link to record",  
-"title": "Dataset title",  
-"date": "YYYY-MM-DD formatted date",  
-"authors": [  
+	"link": "Working link to record",  
+	"title": "Dataset title",  
+	"date": "YYYY-MM-DD formatted date",  
+	"authors": [  
+		{  
+		"name": "Author1 Name, if available.",  
+		"affiliation": "University of Author, if available. If not available do not include this key."  
+		},  
+		{  
+		"name": "Author2 Name"  
+		"affiliation": "University of Author2"  
+		}  
+		...  
 
-{  
+	],  
+	"zenodo_id": "Unique zenodo identifier. Same as key for this entry."  
 
-"name": "Author1 Name, if available.",  
-"affiliation": "University of Author, if available. If not available do not include this key."  
-
-},  
-{  
-"name": "Author2 Name"  
-"affiliation": "University of Author2"  
-}  
-...  
-
-],  
-"zenodo_id": "Unique zenodo identifier. Same as key for this entry."  
-
-},  
-...  
+	},  
+	...  
 
 }
 ```
@@ -46,7 +44,7 @@ Challenge for The Collaboratory
 
 ### Example output
 
-
+![output_screenshot](runtime_output.PNG)
 
 ### Future Ideas:
 - Cache responses in a local directory to save time on subsequent runs.
